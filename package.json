@@ -1,0 +1,33 @@
+{
+  "name": "video-event-inspect",
+  "version": "1.0.0",
+  "description": "inpsect HTMLVideoElement events",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=development webpack",
+    "build": "cross-env NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douxingxiang/video-event-inspect.git"
+  },
+  "keywords": [
+    "video",
+    "event",
+    "inspect"
+  ],
+  "author": "douxingxiang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/douxingxiang/video-event-inspect/issues"
+  },
+  "homepage": "https://github.com/douxingxiang/video-event-inspect#readme",
+  "dependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^5.2.0",
+    "webpack": "^4.35.3"
+  }
+}
