@@ -3,7 +3,7 @@
  */
 const MAP_FIELDS = {
     readyState: {
-        O: 'HAVE_NOTHING',
+        0: 'HAVE_NOTHING',
         1: 'HAVE_METADATA',
         2: 'HAVE_CURRENT_DATA',
         3: 'HAVE_FUTURE_DATA',
@@ -26,7 +26,7 @@ const EVENT_LIST =
     //state change events
     "durationchange volumechange ratechange timeupdate ended " +
     //network loading events
-    "emptied loadstart loadedmetadata loadeddata " +
+    "emptied progress stalled suspend loadstart loadedmetadata loadeddata " +
     //decoder buffering events
     "canplay canplaythrough play playing waiting " + 
     //control events
@@ -47,26 +47,29 @@ let current_log_filters_
  * @param {Function} eventFilters 
  * @param {Function} logFilters 
  */
-function inspect(videoElement, eventFilters, logFilters)
+export function inspect(videoElement, eventFilters, logFilters)
 {
     clear();
 
-    current_video_ = videoElement;
-    current_event_filters_ = eventFilters || (type => { return true; });
-    current_log_filters_ = logFilters || (type => { return true; });
-
-    current_events_ = EVENT_LIST.filter(current_event_filters_);
-    if(current_events_.length > 0) {
-        current_events_.map( type => {
-            current_video_.addEventListener(type, print);
-        });
+    if(videoElement && videoElement.tagName == 'VIDEO') {
+        current_video_ = videoElement;
+        current_event_filters_ = eventFilters || (type => { return true; });
+        current_log_filters_ = logFilters || (type => { return true; });
+    
+        current_events_ = EVENT_LIST.filter(current_event_filters_);
+        if(current_events_.length > 0) {
+            current_events_.map( type => {
+                current_video_.addEventListener(type, print);
+            });
+        }
     }
+
 }
 
 /**
  * clear video inpsect
  */
-function clear()
+export function clear()
 {
     if(current_video_ && current_events_.length > 0) {
         current_events_.map( type => {
@@ -136,9 +139,4 @@ function print(e)
     console.log.apply(console, [output.join(',')].concat(colors_));
 
     last_log_ = current;
-}
-
-export default {
-    start: inspect,
-    clear
 }

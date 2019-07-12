@@ -28,5 +28,8 @@
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",
     "webpack": "^4.35.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.5"
   }
 }
